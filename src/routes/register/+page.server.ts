@@ -16,7 +16,7 @@ const registerUserSchema = z.object({
 		.max(64, "Password must be 64 characters or less")
 });
 
-export const load: PageServerLoad = async (event) => {
+export const load: PageServerLoad = async () => {
 	return {
 		form: superValidate(registerUserSchema)
 	};

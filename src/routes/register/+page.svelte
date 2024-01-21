@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Card, Button } from "flowbite-svelte";
-	import type { PageData } from "../$types";
+	import type { PageServerData } from "./$types";
 	import { superForm } from "sveltekit-superforms/client";
 
-	export let data: PageData;
+	export let data: PageServerData;
 	const { form, errors, enhance } = superForm(data.form, {
 		resetForm: true
 	});
