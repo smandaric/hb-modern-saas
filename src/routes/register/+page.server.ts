@@ -34,7 +34,7 @@ export const actions: Actions = {
 			return setError(form, "passwordConfirm", "Passwords do not match!!");
 		}
 
-		const { error: authError} = await event.locals.supabase.auth.signUp({
+		const { error: authError } = await event.locals.supabase.auth.signUp({
 			email: form.data.email,
 			password: form.data.password,
 			options: {
@@ -45,7 +45,7 @@ export const actions: Actions = {
 		});
 
 		if (authError) {
-			return setError(form, null, "An error occurred while registering. Please try again later.")
+			return setError(form, null, "An error occurred while registering. Please try again later.");
 		}
 	}
 };

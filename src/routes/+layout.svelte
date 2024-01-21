@@ -25,7 +25,6 @@
 		});
 		return () => subscription.unsubscribe();
 	});
-	
 </script>
 
 <svelte:head>
