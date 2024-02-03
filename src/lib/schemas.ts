@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const registerUserSchema = z.object({
+export const registerUserSchema = z.object({
 	full_name: z.string().max(140, "Name must be 140 characters or less").nullish(),
 	email: z.string().email("Invalid email address"),
 	password: z
