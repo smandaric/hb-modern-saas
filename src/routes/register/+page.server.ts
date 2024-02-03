@@ -1,7 +1,7 @@
 import { z } from "zod";
 import type { PageServerLoad } from "./$types";
 import { setError, superValidate } from "sveltekit-superforms/server";
-import { fail, type Actions } from "@sveltejs/kit";
+import { fail, type Actions, redirect } from "@sveltejs/kit";
 
 const registerUserSchema = z.object({
 	full_name: z.string().max(140, "Name must be 140 characters or less").nullish(),
@@ -24,6 +24,12 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	default: async (event) => {
+		const session = await event.locals.getSession();
+		// If the user is already logged in, redirect them to the home page
+		if (session) {
+			throw redirect(302, "/");
+		}
+
 		const form = await superValidate(event, registerUserSchema);
 
 		if (!form.valid) {

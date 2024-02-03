@@ -17,6 +17,12 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	default: async (event: RequestEvent) => {
+		const session = await event.locals.getSession();
+		// If the user is already logged in, redirect them to the home page
+		if (session) {
+			throw redirect(302, "/");
+		}
+
 		const form = await superValidate(event, loginUserSchema);
 
 		if (!form.valid) {
