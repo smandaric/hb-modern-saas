@@ -5,7 +5,7 @@
 	import { superForm } from "sveltekit-superforms/client";
 	import type { Validation } from "sveltekit-superforms/index";
 	export let data: Validation<PasswordSchema>;
-	const { form, errors, enhance } = superForm(data);
+	const { form, errors, enhance } = superForm(data, { resetForm: true });
 </script>
 
 <section class="px-6 pt-16">
