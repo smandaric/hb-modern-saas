@@ -42,7 +42,7 @@
 					<TableBodyCell>
 						<MenuButton class="dots-menu dark:text-white" vertical name="Contact Menu" />
 						<Dropdown placement="left-start">
-							<DropdownItem>Edit</DropdownItem>
+							<DropdownItem href="/contacts/{contact.id}">Edit</DropdownItem>
 							<DropdownItem slot="footer">Delete</DropdownItem>
 						</Dropdown>
 					</TableBodyCell>
