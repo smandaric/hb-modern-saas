@@ -43,6 +43,10 @@ export async function createUser(user: CreateUser) {
 		}
 	});
 
+	// We have to sign out the user because Supabase will start using the user's session
+	// instead of the service account's session
+	await supabaseAdmin.auth.signOut();
+
 	if (authError || !authData.user) {
 		throw new Error("Error creating user");
 	}
