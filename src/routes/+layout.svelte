@@ -56,7 +56,7 @@
 						<span class="block truncate text-sm font-medium"> {session.user.email} </span>
 					</div>
 					<DropdownItem href="/account">Settings</DropdownItem>
-					<DropdownItem href="/account">Billing</DropdownItem>
+					<DropdownItem href="/account/billing">Billing</DropdownItem>
 					<form action="/logout" method="POST">
 						<DropdownItem type="submit" slot="footer">Sign out</DropdownItem>
 					</form>
