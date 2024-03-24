@@ -25,4 +25,3 @@ CREATE POLICY "Users can update own contacts" ON contacts
 CREATE POLICY "Users can delete own contacts" ON contacts
     FOR DELETE TO authenticated
         USING (auth.uid() = user_id);
-
