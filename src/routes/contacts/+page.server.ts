@@ -29,7 +29,9 @@ export const load: PageServerLoad = async (event) => {
 	return {
 		createContactForm: superValidate(createContactSchema, { id: "create" }),
 		deleteContactForm: superValidate(deleteContactSchema, { id: "delete" }),
-		contacts: getContacts()
+		contacts: getContacts(),
+		tier: getSubscriptionTier(session.user.id),
+		contactsCount: getContactsCount(session.user.id)
 	};
 };
 
