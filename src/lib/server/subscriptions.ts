@@ -1,4 +1,4 @@
-import { stripeSubscriptionSchema } from "$lib/schemas";
+import { stripeSubscriptionSchema, subscriptionProductSchema, type SubscriptionTier } from "$lib/schemas";
 import type Stripe from "stripe";
 import { supabaseAdmin } from "./supabase-admin";
 import { stripe } from "./stripe";
@@ -58,7 +58,7 @@ export async function verifyTrialEligibility(user_id: string, price_id: string):
 		.eq("product_id", price.product.id)
 		.limit(1)
 		.maybeSingle();
-	
+
 	if (subscriptionError) {
 		throw subscriptionError;
 	}
@@ -127,4 +127,25 @@ export async function createCheckoutSession(user_id: string, price_id: string) {
 		throw new Error("Error creating checkout session");
 	}
 	return checkoutSession.url;
+}
+
+export async function getSubscriptionTier(user_id: string): Promise<SubscriptionTier> {
+	const { error: subscriptionError, data: subscription } = await supabaseAdmin
+		.from("billing_subscriptions")
+		.select("product:product_id(name)") // Get product name from billing_products table via product_id foreign key. Rename it to "product".
+		.eq("user_id", user_id)
+		.in("status", ["active", "trialing"])
+		.limit(1)
+		.maybeSingle();
+
+	if (subscriptionError || !subscription) {
+		return "Free";
+	}
+
+	try {
+		const tier = subscriptionProductSchema.parse(subscription);
+		return tier.product.name;
+	} catch (e) {
+		return "Free";
+	}
 }
