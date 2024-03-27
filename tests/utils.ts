@@ -9,7 +9,7 @@ type User = {
 export async function registerUser(page: Page, testUser: User) {
 	await page.goto("/");
 	await page.getByRole("link", { name: "Register" }).click();
-	await expect(page.getByRole("heading", { name: "Registerss" })).toBeVisible();
+	await expect(page.getByRole("heading", { name: "Register" })).toBeVisible();
 
 	const registerForm = page.getByTestId("register-form");
 	await registerForm.getByTestId("full_name").fill(testUser.full_name);
