@@ -18,7 +18,7 @@
 	},
 	"devDependencies": {
 		"@faker-js/faker": "^7.6.0",
-		"@playwright/test": "^1.28.1",
+		"@playwright/test": "^1.42.1",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/adapter-vercel": "^2.4.3",
 		"@sveltejs/kit": "^1.5.0",
