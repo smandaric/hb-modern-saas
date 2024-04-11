@@ -36,7 +36,7 @@ jobs:
         run: pnpm i -g vercel@canary
 
       - name: Pull Dev Env. Vars.
-        run: vercel env pull --yes --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel env pull .env --yes --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Setup Supabase CLI
         uses: supabase/setup-cli@v1
