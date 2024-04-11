@@ -6,7 +6,7 @@ const config: PlaywrightTestConfig = {
 		command: "pnpm build && pnpm preview",
 		port: 4173,
 		reuseExistingServer: true,
-		timeout: 10 * 1000
+		timeout: 30 * 1000
 	},
 	testDir: "tests",
 	testMatch: /(.+\.)?(test|spec)\.[jt]s/,
