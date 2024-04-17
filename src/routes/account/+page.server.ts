@@ -3,12 +3,13 @@ import type { PageServerLoad, Actions } from "./$types";
 import { setError, superValidate } from "sveltekit-superforms/server";
 import { profileSchema, emailSchema, passwordSchema } from "$lib/schemas";
 import { getSubscriptionTier } from "$lib/server/subscriptions";
+import { handleLoginRedirect } from "$lib/helpers";
 
 export const load: PageServerLoad = async (event) => {
 	const session = await event.locals.getSession();
 	// If the user is already logged in, redirect them to the home page
 	if (!session) {
-		throw redirect(302, "/login");
+		throw redirect(302, handleLoginRedirect(event));
 	}
 
 	async function getUserProfile() {
@@ -28,7 +29,7 @@ export const load: PageServerLoad = async (event) => {
 		profileForm: superValidate(await getUserProfile(), profileSchema, { id: "profile" }),
 		emailForm: superValidate({ email: session.user.email }, emailSchema, { id: "email" }),
 		passwordForm: superValidate(passwordSchema, { id: "password" }),
-		tier: getSubscriptionTier(session.user.id),
+		tier: getSubscriptionTier(session.user.id)
 	};
 };
 

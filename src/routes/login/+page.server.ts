@@ -18,7 +18,8 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
 	default: async (event: RequestEvent) => {
 		const session = await event.locals.getSession();
-		// If the user is already logged in, redirect them to the home page
+		const redirectTo = event.url.searchParams.get("redirectTo");
+
 		if (session) {
 			throw redirect(302, "/");
 		}
@@ -39,6 +40,11 @@ export const actions: Actions = {
 				return fail(400, { form });
 			}
 		}
+
+		if (redirectTo) {
+			throw redirect(302, `/${redirectTo.slice(1)}`);
+		}
+
 		throw redirect(302, "/");
 	}
 };
