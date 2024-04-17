@@ -2,8 +2,27 @@
 	import { Button, Card } from "flowbite-svelte";
 	import type { PageData } from "./$types";
 	import { superForm } from "sveltekit-superforms/client";
+	import toast from "svelte-french-toast";
+
 	export let data: PageData;
-	const { form, errors, enhance } = superForm(data.updateContactForm);
+	const { form, errors, enhance } = superForm(data.updateContactForm, {
+		onResult: ({ result }) => {
+			switch (result.type) {
+				case "success":
+					toast.success("Contact updated successfully!");
+					break;
+				case "error":
+					toast.error("Error updating contact!");
+					break;
+				case "failure":
+					toast.error("Check your details and try again!");
+					break;
+				default:
+					return;
+			}
+			return;
+		}
+	});
 </script>
 
 <div class="py-20">
@@ -41,7 +60,7 @@
 				</label>
 				<label class="space-y-2" for="company">
 					<span>Company</span>
-					<input type="text" name="company" bind:value={$form.company} data-testid="company"/>
+					<input type="text" name="company" bind:value={$form.company} data-testid="company" />
 					{#if $errors.company}
 						<span class="block text-red-600 dark:text-red-500">{$errors.company}</span>
 					{/if}
